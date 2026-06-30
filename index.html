@@ -5,88 +5,319 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Heena ❤️</title>
 <style>
-body{
+*{
 margin:0;
 padding:0;
+box-sizing:border-box;
+}
+body{
 background:linear-gradient(135deg,#ff9ec4,#ffd6e8,#fff);
 font-family:Arial,sans-serif;
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
-overflow:hidden;
+min-height:100vh;
+padding:20px;
+overflow-x:hidden;
+}
+.container{
+position:relative;
+width:100%;
+max-width:500px;
+}
+.floating-hearts{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+pointer-events:none;
+z-index:1;
+}
+.heart{
+position:absolute;
+font-size:30px;
+animation:float 6s infinite;
+opacity:0.6;
+}
+@keyframes float{
+0%{
+transform:translateY(100vh) translateX(0);
+opacity:0;
+}
+50%{
+opacity:0.6;
+}
+100%{
+transform:translateY(-100vh) translateX(100px);
+opacity:0;
+}
 }
 .card{
 background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-max-width:350px;
+padding:40px;
+border-radius:25px;
+box-shadow:0 15px 50px rgba(255,45,117,0.3);
 text-align:center;
 animation:pop 1s ease;
+position:relative;
+z-index:10;
+}
+.emoji-container{
+font-size:80px;
+margin-bottom:20px;
+animation:bounce 2s infinite;
+}
+@keyframes bounce{
+0%,100%{transform:translateY(0);}
+50%{transform:translateY(-20px);}
 }
 h1{
 color:#ff2d75;
+font-size:32px;
+margin-bottom:15px;
+text-shadow:2px 2px 4px rgba(255,45,117,0.1);
+}
+.subtitle{
+color:#ff5fa2;
+font-size:16px;
+margin-bottom:30px;
+font-style:italic;
+}
+.cupid-character{
+font-size:100px;
+margin:20px 0;
+animation:cupid-fly 4s infinite;
+}
+@keyframes cupid-fly{
+0%{transform:translateX(-50px) translateY(0);}
+50%{transform:translateX(50px) translateY(-30px);}
+100%{transform:translateX(-50px) translateY(0);}
+}
+.love-line{
+color:#ff2d75;
+font-size:20px;
+margin:15px 0;
+animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+0%,100%{opacity:1;}
+50%{opacity:0.5;}
 }
 button{
-background:#ff2d75;
+background:linear-gradient(135deg,#ff2d75,#ff5fa2);
 color:white;
 border:none;
-padding:12px 20px;
+padding:15px 40px;
 border-radius:30px;
-font-size:16px;
+font-size:18px;
 cursor:pointer;
+font-weight:bold;
+transition:all 0.3s ease;
+margin-top:20px;
+box-shadow:0 5px 15px rgba(255,45,117,0.3);
+}
+button:hover{
+transform:scale(1.05);
+box-shadow:0 8px 20px rgba(255,45,117,0.5);
+}
+button:active{
+transform:scale(0.95);
 }
 #msg{
 display:none;
-margin-top:20px;
-font-size:17px;
-line-height:1.6;
+margin-top:30px;
+font-size:16px;
+line-height:1.8;
 color:#444;
+background:linear-gradient(135deg,#ffe6f2,#fff);
+padding:25px;
+border-radius:15px;
+border-left:5px solid #ff2d75;
+animation:slideIn 0.8s ease;
+}
+@keyframes slideIn{
+from{
+opacity:0;
+transform:translateY(-20px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+.stars{
+display:inline-block;
+color:#ffd700;
+margin:0 5px;
+animation:twinkle 1.5s infinite;
+}
+@keyframes twinkle{
+0%,100%{opacity:1;}
+50%{opacity:0.3;}
+}
+.flower{
+display:inline-block;
+margin:0 3px;
+animation:spin 3s infinite linear;
+}
+@keyframes spin{
+from{transform:rotate(0deg);}
+to{transform:rotate(360deg);}
+}
+.message-box p{
+margin:10px 0;
+}
+b{
+color:#ff2d75;
 }
 @keyframes pop{
-from{transform:scale(.5);opacity:0;}
-to{transform:scale(1);opacity:1;}
+from{
+transform:scale(0.5);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+.confetti-container{
+position:fixed;
+width:100%;
+height:100%;
+top:0;
+left:0;
+pointer-events:none;
+z-index:5;
+}
+.confetti{
+position:absolute;
+width:10px;
+height:10px;
+background:#ff2d75;
+animation:confetti-fall 3s linear forwards;
+}
+@keyframes confetti-fall{
+to{
+transform:translateY(100vh) rotate(360deg);
+opacity:0;
+}
 }
 </style>
 </head>
 <body>
 
-<div class="card">
-<h1>🎂 Happy Birthday Heena ❤️</h1>
-<p>Someone has a special message for you...</p>
+<div class="floating-hearts" id="floatingHearts"></div>
+<div class="confetti-container" id="confettiContainer"></div>
 
-<button onclick="showMessage()">Open Your Surprise 🎁</button>
+<div class="container">
+<div class="card">
+<div class="emoji-container">🎂</div>
+
+<h1>🎉 Happy Birthday Heena 🎉</h1>
+<p class="subtitle">✨ A Special Surprise from Your Sweetheart ✨</p>
+
+<div class="cupid-character">💘</div>
+
+<div class="love-line">💕 Someone loves you sooo much! 💕</div>
+
+<p style="color:#ff5fa2; font-size:18px; margin:15px 0;">
+  <span class="flower">🌹</span>
+  Click below to reveal your surprise
+  <span class="flower">🌹</span>
+</p>
+
+<button onclick="showMessage()">🎁 Open Your Surprise 🎁</button>
 
 <div id="msg">
+<div class="message-box">
+<p style="font-size:20px; margin-bottom:20px;">
+  <span class="stars">⭐</span> 
+  Dear Heena 
+  <span class="stars">⭐</span>
+</p>
+
 <p>
-Dear Heena,<br><br>
+  Happy Birthday to the most amazing girl in my life. <span style="font-size:24px;">❤️</span>
+</p>
 
-Happy Birthday to the most amazing girl in my life. ❤️
+<p>
+  It's been almost <b>2 beautiful years</b> with you. We worked together in the BPO, shared so many memories, and even though you're working from home now, you've never stopped being my biggest support.
+</p>
 
-It's been almost <b>2 beautiful years</b> with you. We worked together in the BPO, shared so many memories, and even though you're working from home now, you've never stopped being my biggest support.
+<p>
+  <span class="flower">💐</span> Thank you for always standing by me, believing in me, and making life brighter just by being in it. <span class="flower">💐</span>
+</p>
 
-Thank you for always standing by me, believing in me, and making life brighter just by being in it.
+<p>
+  I may not be able to give you the biggest gift today, but I hope this little surprise reminds you how special you are to me.
+</p>
 
-I may not be able to give you the biggest gift today, but I hope this little surprise reminds you how special you are to me.
+<p style="margin-top:20px; font-size:16px;">
+  I wish you endless happiness, success, good health, and countless reasons to smile.
+</p>
 
-I wish you endless happiness, success, good health, and countless reasons to smile.
+<p style="margin-top:20px; font-size:18px; font-weight:bold;">
+  Happy Birthday once again, <br>my favourite person. <br>
+  <span style="font-size:28px;">❤️ 💕 ❤️</span>
+</p>
 
-Happy Birthday once again, my favourite person.
-
-❤️ Forever Yours,<br>
-<b>Ayan</b>
+<p style="margin-top:25px; font-size:18px; font-weight:bold;">
+  Forever Yours, <br>
+  <span style="color:#ff2d75; font-size:22px;">Ayan</span>
+  <span style="font-size:24px; margin-left:10px;">💑</span>
 </p>
 </div>
+</div>
 
+</div>
 </div>
 
 <script>
-function showMessage(){
-document.getElementById("msg").style.display="block";
-document.querySelector("button").style.display="none";
-document.body.style.background="linear-gradient(135deg,#ff5fa2,#ffe6f2,#fff)";
+// Generate floating hearts
+function createFloatingHearts(){
+  const container = document.getElementById('floatingHearts');
+  const hearts = ['❤️', '💕', '💖', '💗', '💓', '💞'];
+  
+  for(let i = 0; i < 15; i++){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+    heart.style.left = Math.random() * 100 + '%';
+    heart.style.animationDelay = Math.random() * 2 + 's';
+    heart.style.animationDuration = (4 + Math.random() * 3) + 's';
+    container.appendChild(heart);
+  }
 }
+
+// Create confetti effect
+function createConfetti(){
+  const container = document.getElementById('confettiContainer');
+  const colors = ['#ff2d75', '#ffd6e8', '#ff5fa2', '#ffe6f2'];
+  
+  for(let i = 0; i < 30; i++){
+    const confetti = document.createElement('div');
+    confetti.className = 'confetti';
+    confetti.style.left = Math.random() * 100 + '%';
+    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+    confetti.style.animationDelay = Math.random() * 0.5 + 's';
+    container.appendChild(confetti);
+    
+    setTimeout(() => confetti.remove(), 3000);
+  }
+}
+
+function showMessage(){
+  document.getElementById('msg').style.display = 'block';
+  document.querySelector('button').style.display = 'none';
+  document.body.style.background = 'linear-gradient(135deg,#ff5fa2,#ffe6f2,#fff9fc)';
+  
+  // Create confetti effect
+  createConfetti();
+}
+
+// Initialize floating hearts on page load
+createFloatingHearts();
 </script>
 
 </body>
